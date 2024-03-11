@@ -4,6 +4,7 @@ import { Button, ErrorBlock, List, PullToRefresh, SpinLoading } from 'antd-mobil
 import { getConfig } from '@/utils/store';
 import { getHostList, getRuleList } from '@/utils/api';
 import './style.less';
+import TopNavBar from '../TopNavBar';
 
 export default function () {
     const [isLoading, setIsLoading] = useState(false);
@@ -41,39 +42,44 @@ export default function () {
     }, []);
 
     return (
-        <PullToRefresh onRefresh={getList}>
-            <div className="rule-list-wrap">
-                {data?.length > 0 && (
-                    <List>
-                        {data?.map((rule) => (
-                            <List.Item
-                                key={rule.domain}
-                                extra={rule.host.map((h) => h.name).join(',')}
-                                onClick={() => {}}
-                            >
-                                {rule.domain}
-                            </List.Item>
-                        ))}
-                    </List>
-                )}
-                {data?.length === 0 && (
-                    <ErrorBlock
-                        status="empty"
-                        title="Hmm, couldn't find data..."
-                        description={
-                            <Button color="primary" size="mini" onClick={getList}>
-                                Add Rule
-                            </Button>
-                        }
-                        fullPage
-                    />
-                )}
-                {isLoading && (
-                    <div className="loading-box">
-                        <SpinLoading color="primary" />
+        <>
+            <TopNavBar title="Rule List" />
+            <div className="body">
+                <PullToRefresh onRefresh={getList}>
+                    <div className="rule-list-wrap">
+                        {data?.length > 0 && !isLoading && (
+                            <List>
+                                {data?.map((rule) => (
+                                    <List.Item
+                                        key={rule.domain}
+                                        extra={rule.host.map((h) => h.name).join(',')}
+                                        onClick={() => {}}
+                                    >
+                                        {rule.domain}
+                                    </List.Item>
+                                ))}
+                            </List>
+                        )}
+                        {data?.length === 0 && !isLoading && (
+                            <ErrorBlock
+                                status="empty"
+                                title="Hmm, couldn't find data..."
+                                description={
+                                    <Button color="primary" size="mini" onClick={getList}>
+                                        Add Rule
+                                    </Button>
+                                }
+                                fullPage
+                            />
+                        )}
+                        {isLoading && (
+                            <div className="loading-box">
+                                <SpinLoading color="primary" />
+                            </div>
+                        )}
                     </div>
-                )}
+                </PullToRefresh>
             </div>
-        </PullToRefresh>
+        </>
     );
 }

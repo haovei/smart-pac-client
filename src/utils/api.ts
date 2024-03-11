@@ -10,7 +10,22 @@ export const getHostList = async () => {
             Authorization: `Bearer ${config?.token}`,
         },
     });
-    const data = await res.json() as Host[];
+    const data = (await res.json()) as Host[];
+    return data;
+};
+
+// 修改 host 数据
+export const updateHost = async (host: Host) => {
+    const config = getConfig();
+    const prefix = config?.server ?? '';
+    const res = await fetch(`${prefix}/api/updateHost`, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${config?.token}`,
+        },
+        body: JSON.stringify(host),
+    });
+    const data = (await res.json()) as Host;
     return data;
 };
 
@@ -23,6 +38,6 @@ export const getRuleList = async () => {
             Authorization: `Bearer ${config?.token}`,
         },
     });
-    const data = await res.json() as Rule[];
+    const data = (await res.json()) as Rule[];
     return data;
 };
