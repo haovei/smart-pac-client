@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Input, Form, Button } from 'antd-mobile';
-import { getConfig, setConfig } from '../../store';
+import { Input, Form, Button, Toast } from 'antd-mobile';
+import { getConfig, setConfig } from '@/utils/store';
 import './style.less';
 
 const Config: React.FC = () => {
@@ -8,6 +8,7 @@ const Config: React.FC = () => {
     const handleSave = async () => {
         const res = await form.validateFields();
         setConfig(res);
+        Toast.show('Save success');
     };
 
     useEffect(() => {

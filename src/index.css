@@ -36,3 +36,10 @@ body {
         border-top: solid 1px var(--adm-color-border);
     }
 }
+
+.loading-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
