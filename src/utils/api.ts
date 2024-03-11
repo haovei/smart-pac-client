@@ -29,6 +29,21 @@ export const updateHost = async (host: Host) => {
     return data;
 };
 
+// 删除 host 数据
+export const removeHost = async (id: number) => {
+    const config = getConfig();
+    const prefix = config?.server ?? '';
+    const res = await fetch(`${prefix}/api/deleteHost`, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${config?.token}`,
+        },
+        body: JSON.stringify({ id }),
+    });
+    const data = (await res.json()) as Host;
+    return data;
+};
+
 // 获取 ruleList 数据
 export const getRuleList = async () => {
     const config = getConfig();

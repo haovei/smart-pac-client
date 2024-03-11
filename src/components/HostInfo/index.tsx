@@ -1,19 +1,24 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Button, Form, Input, Radio, Space, Toast } from 'antd-mobile';
 import { Host } from '@/types';
-import { updateHost } from '@/utils/api';
+import { removeHost, updateHost } from '@/utils/api';
 
 type Props = {
     host: Host;
     onSave?: () => void;
+    onRemove?: () => void;
 };
 
-export default function ({ host, onSave }: Props) {
+export default function ({ host, onSave, onRemove }: Props) {
     const [form] = Form.useForm();
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        form.setFieldsValue(host);
+        if (host) {
+            form.setFieldsValue(host);
+        } else {
+            form.resetFields();
+        }
     }, [host]);
 
     const onFinish = useCallback(
@@ -30,15 +35,31 @@ export default function ({ host, onSave }: Props) {
         [onSave]
     );
 
+    const handleRemove = useCallback(async () => {
+        setIsLoading(true);
+        const res = await removeHost(host.id);
+        setIsLoading(false);
+        if (res) {
+            onRemove?.();
+        } else {
+            Toast.show('Remove failed');
+        }
+    }, [onRemove]);
+
     return (
         <Form
             form={form}
             layout="vertical"
             onFinish={onFinish}
             footer={
-                <Button block type="submit" color="primary" loading={isLoading}>
-                    Save
-                </Button>
+                <Space direction="vertical" block>
+                    <Button key="submit" block type="submit" color="primary" loading={isLoading}>
+                        Save
+                    </Button>
+                    <Button key="remove" block color="danger" onClick={handleRemove}>
+                        Remove
+                    </Button>
+                </Space>
             }
         >
             <Form.Header>Proxy Host Info</Form.Header>

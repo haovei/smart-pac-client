@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, ErrorBlock, List, Popup, PullToRefresh, SpinLoading } from 'antd-mobile';
+import { Button, ErrorBlock, List, NavBar, Popup, PullToRefresh, SpinLoading } from 'antd-mobile';
 import { getConfig } from '@/utils/store';
 import { getHostList } from '@/utils/api';
 import './style.less';
 import { Host } from '@/types';
 import HostInfo from '../HostInfo';
 import TopNavBar from '../TopNavBar';
+import { AddCircleOutline } from 'antd-mobile-icons';
 
 export default function () {
     const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +34,20 @@ export default function () {
 
     return (
         <>
-            <TopNavBar title="Host List" />
+            <NavBar
+                back={null}
+                right={
+                    <AddCircleOutline
+                        fontSize={24}
+                        onClick={() => {
+                            setCurrentHost({} as Host);
+                        }}
+                    />
+                }
+                className="top-nav-bar"
+            >
+                Host List
+            </NavBar>
             <div className="body">
                 <PullToRefresh onRefresh={getList}>
                     <div className="host-list-wrap">
@@ -84,6 +98,11 @@ export default function () {
                     host={currentHost!}
                     onSave={() => {
                         setCurrentHost(undefined);
+                        getList();
+                    }}
+                    onRemove={() => {
+                        setCurrentHost(undefined);
+                        getList();
                     }}
                 />
             </Popup>

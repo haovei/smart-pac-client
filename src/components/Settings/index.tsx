@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Input, Form, Button, Toast, NavBar } from 'antd-mobile';
 import { getConfig, setConfig } from '@/utils/store';
 import './style.less';
 
 const Config: React.FC = () => {
     const [form] = Form.useForm();
-    const handleSave = async () => {
+    const handleSave = useCallback(async () => {
         const res = await form.validateFields();
         setConfig(res);
         Toast.show('Save success');
-    };
+    }, [form]);
 
     useEffect(() => {
         const config = getConfig();
@@ -25,10 +25,11 @@ const Config: React.FC = () => {
                 <div className="config-page">
                     <Form
                         form={form}
+                        onFinish={handleSave}
                         layout="vertical"
                         mode="card"
                         footer={
-                            <Button color="primary" size="large" block onClick={handleSave}>
+                            <Button color="primary" size="large" block>
                                 Save
                             </Button>
                         }
