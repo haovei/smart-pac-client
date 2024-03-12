@@ -2,13 +2,16 @@ import React, { useCallback, useEffect } from 'react';
 import { Input, Form, Button, Toast, NavBar } from 'antd-mobile';
 import { getConfig, setConfig } from '@/utils/store';
 import './style.less';
+import { useNavigate } from 'react-router-dom';
 
 const Config: React.FC = () => {
+    const navigate = useNavigate();
     const [form] = Form.useForm();
     const handleSave = useCallback(async () => {
         const res = await form.validateFields();
         setConfig(res);
         Toast.show('Save success');
+        navigate('/hosts', { replace: true });
     }, [form]);
 
     useEffect(() => {
@@ -29,7 +32,7 @@ const Config: React.FC = () => {
                         layout="vertical"
                         mode="card"
                         footer={
-                            <Button color="primary" size="large" block>
+                            <Button type="submit" color="primary" size="large" block>
                                 Save
                             </Button>
                         }

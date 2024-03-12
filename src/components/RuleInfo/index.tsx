@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Button, Checkbox, Form, Input, Radio, Space, Toast } from 'antd-mobile';
+import { Button, Checkbox, Form, Input, Space, Toast } from 'antd-mobile';
 import { Rule } from '@/types';
 import { removeRule, updateRule } from '@/utils/api';
 

@@ -1,20 +1,19 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, ErrorBlock, List, NavBar, Popup, PullToRefresh, SpinLoading } from 'antd-mobile';
+import { AddCircleOutline } from 'antd-mobile-icons';
 import { getConfig } from '@/utils/store';
 import { Rule } from '@/types';
 import { getHostList, getRuleList } from '@/utils/api';
-import TopNavBar from '../TopNavBar';
 import RuleInfo from '../RuleInfo';
 import './style.less';
-import { AddCircleOutline } from 'antd-mobile-icons';
 
 export default function () {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     if (!getConfig()) {
-      navigate('/settings');
+      navigate('/settings', { replace: true });
     }
   }, []);
 
@@ -69,7 +68,7 @@ export default function () {
                 {data?.map((rule) => (
                   <List.Item
                     key={rule[0]}
-                    extra={rule[1].map((id) => hostMap[id]?.name).join(',')}
+                    extra={rule[1].map((id: number) => hostMap[id]?.name).join(',')}
                     onClick={() => {
                       setCurrentRule(rule);
                     }}

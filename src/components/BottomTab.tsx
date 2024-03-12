@@ -9,7 +9,7 @@ export default () => {
     const { pathname } = location;
 
     const setRouteActive = useCallback((value: string) => {
-        navigate(value);
+        navigate(value, { replace: true });
     }, []);
 
     const tabs = useMemo(

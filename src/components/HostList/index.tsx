@@ -1,20 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, ErrorBlock, List, NavBar, Popup, PullToRefresh, SpinLoading } from 'antd-mobile';
+import { AddCircleOutline } from 'antd-mobile-icons';
 import { getConfig } from '@/utils/store';
 import { getHostList } from '@/utils/api';
-import './style.less';
 import { Host } from '@/types';
 import HostInfo from '../HostInfo';
-import TopNavBar from '../TopNavBar';
-import { AddCircleOutline } from 'antd-mobile-icons';
+import './style.less';
 
 export default function () {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
         if (!getConfig()) {
-            navigate('/settings');
+            navigate('/settings', { replace: true });
         }
     }, []);
 

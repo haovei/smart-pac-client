@@ -7,9 +7,9 @@ export default function Home() {
     useEffect(() => {
         const config = getConfig();
         if (config) {
-            navigate('/hosts');
+            navigate('/hosts', { replace: true });
         } else {
-            navigate('/settings');
+            navigate('/settings', { replace: true });
         }
     }, []);
 
