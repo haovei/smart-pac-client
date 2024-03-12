@@ -56,3 +56,33 @@ export const getRuleList = async () => {
     const data = (await res.json()) as Rule[];
     return data;
 };
+
+// 修改 rule 数据
+export const updateRule = async (rule: Rule) => {
+    const config = getConfig();
+    const prefix = config?.server ?? '';
+    const res = await fetch(`${prefix}/api/updateRule`, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${config?.token}`,
+        },
+        body: JSON.stringify(rule),
+    });
+    const data = (await res.json()) as Rule;
+    return data;
+};
+
+// 删除 rule 数据
+export const removeRule = async (domain: string) => {
+    const config = getConfig();
+    const prefix = config?.server ?? '';
+    const res = await fetch(`${prefix}/api/deleteRule`, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${config?.token}`,
+        },
+        body: JSON.stringify({ rule: domain }),
+    });
+    const data = (await res.json()) as Rule;
+    return data;
+};
