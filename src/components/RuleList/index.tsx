@@ -26,6 +26,7 @@ export default function () {
         map[host.id] = host;
       });
       setHostMap(map);
+      getList();
     })();
   }, []);
 
@@ -37,10 +38,6 @@ export default function () {
 
     setData(res);
   }, [hostMap]);
-
-  useEffect(() => {
-    getList();
-  }, []);
 
   const [currentRule, setCurrentRule] = useState<Rule>();
 
