@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, ErrorBlock, List, NavBar, Popup, PullToRefresh, SpinLoading } from 'antd-mobile';
+import { Button, ErrorBlock, List, NavBar, Popup, PullToRefresh, SpinLoading, Toast } from 'antd-mobile';
 import { AddCircleOutline } from 'antd-mobile-icons';
 import { getConfig } from '@/utils/store';
 import { Rule } from '@/types';
@@ -13,6 +13,7 @@ export default function () {
   const navigate = useNavigate();
   useEffect(() => {
     if (!getConfig()) {
+      Toast.show('Please set up the configuration first');
       navigate('/settings', { replace: true });
     }
   }, []);

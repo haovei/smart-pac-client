@@ -6,11 +6,11 @@ plugins {
 
 android {
     compileSdk = 33
-    namespace = "com.quteam.app"
+    namespace = "com.quteam.smartpac.app"
     defaultConfig {
         manifestPlaceholders["usesCleartextTraffic"] = "false"
-        applicationId = "com.quteam.app"
-        minSdk = 24
+        applicationId = "com.quteam.smartpac.app"
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
