@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button, ErrorBlock, List, NavBar, Popup, PullToRefresh, SpinLoading, Toast } from 'antd-mobile';
+import { Button, ErrorBlock, List, NavBar, Popup, PullToRefresh, SpinLoading } from 'antd-mobile';
 import { AddCircleOutline } from 'antd-mobile-icons';
-import { getConfig } from '@/utils/store';
 import { getHostList } from '@/utils/api';
 import { Host } from '@/types';
 import HostInfo from '../HostInfo';
@@ -10,13 +8,6 @@ import './style.less';
 
 export default function () {
     const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (!getConfig()) {
-            Toast.show('Please set up the configuration first');
-            navigate('/settings', { replace: true });
-        }
-    }, []);
 
     const [data, setData] = useState<Host[]>([]);
     const getList = useCallback(async () => {

@@ -1,6 +1,6 @@
 import enUS from 'antd-mobile/es/locales/en-US';
 import { ConfigProvider } from 'antd-mobile';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, HashRouter, Routes } from 'react-router-dom';
 
 import Home from '@/components/Home';
 import Settings from '@/components/Settings';
@@ -11,7 +11,7 @@ import BottomTab from '@/components/BottomTab';
 export default function App() {
     return (
         <ConfigProvider locale={enUS}>
-            <BrowserRouter>
+            <HashRouter>
                 <div className="main-app">
                     <Routes>
                         <Route path="/" element={<Home />} />
@@ -21,7 +21,7 @@ export default function App() {
                     </Routes>
                     <BottomTab />
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         </ConfigProvider>
     );
 }

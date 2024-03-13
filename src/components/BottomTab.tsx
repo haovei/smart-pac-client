@@ -1,7 +1,8 @@
 import { useCallback, useMemo } from 'react';
-import { TabBar } from 'antd-mobile';
+import { TabBar, Toast } from 'antd-mobile';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { UnorderedListOutline, FilterOutline, SetOutline } from 'antd-mobile-icons';
+import { getConfig } from '@/utils/store';
 
 export default () => {
     const navigate = useNavigate();
@@ -9,7 +10,11 @@ export default () => {
     const { pathname } = location;
 
     const setRouteActive = useCallback((value: string) => {
-        navigate(value, { replace: true });
+        if (getConfig()) {
+            navigate(value, { replace: true });
+        } else {
+            Toast.show('Please set up the configuration first');
+        }
     }, []);
 
     const tabs = useMemo(
