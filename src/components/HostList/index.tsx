@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Button, ErrorBlock, List, NavBar, Popup, PullToRefresh, SpinLoading } from 'antd-mobile';
+import { ErrorBlock, List, NavBar, Popup, PullToRefresh, Space, SpinLoading } from 'antd-mobile';
 import { AddCircleOutline } from 'antd-mobile-icons';
 import { getHostList } from '@/utils/api';
 import { Host } from '@/types';
@@ -37,12 +37,15 @@ export default function () {
                 }
                 className="top-nav-bar"
             >
-                Host List
+                <Space align="center">
+                    {isLoading && <SpinLoading color="default" style={{ '--size': '18px' }} />}
+                    <span>Host List</span>
+                </Space>
             </NavBar>
             <div className="body">
                 <PullToRefresh onRefresh={getList}>
                     <div className="host-list-wrap">
-                        {data?.length > 0 && !isLoading && (
+                        {data?.length > 0 && (
                             <List>
                                 {data?.map((host) => (
                                     <List.Item
@@ -57,22 +60,13 @@ export default function () {
                                 ))}
                             </List>
                         )}
-                        {data?.length === 0 && !isLoading && (
+                        {data?.length === 0 && (
                             <ErrorBlock
                                 status="empty"
                                 title="Hmm, couldn't find data..."
-                                description={
-                                    <Button color="primary" size="mini" onClick={getList}>
-                                        Add Host
-                                    </Button>
-                                }
+                                description={null}
                                 fullPage
                             />
-                        )}
-                        {isLoading && (
-                            <div className="loading-box">
-                                <SpinLoading color="primary" />
-                            </div>
                         )}
                     </div>
                 </PullToRefresh>
