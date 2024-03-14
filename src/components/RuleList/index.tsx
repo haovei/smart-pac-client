@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Button, ErrorBlock, List, NavBar, Popup, PullToRefresh, SpinLoading } from 'antd-mobile';
+import { ErrorBlock, List, NavBar, Popup, PullToRefresh, Space, SpinLoading } from 'antd-mobile';
 import { AddCircleOutline } from 'antd-mobile-icons';
 import { Rule } from '@/types';
 import { getHostList, getRuleList } from '@/utils/api';
@@ -7,28 +7,32 @@ import RuleInfo from '../RuleInfo';
 import './style.less';
 
 export default function () {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const [hostMap, setHostMap] = useState<any>();
     useEffect(() => {
         (async () => {
-            const hostList = await getHostList();
-            const map: any = {};
-            hostList.forEach((host) => {
-                map[host.id] = host;
-            });
-            setHostMap(map);
-            getList();
+            try {
+                const hostList = await getHostList();
+                const map: any = {};
+                hostList.forEach((host) => {
+                    map[host.id] = host;
+                });
+                setHostMap(map);
+                await getList();
+            } catch (error) {}
+            setIsLoading(false);
         })();
     }, []);
 
     const [data, setData] = useState<any[]>([]);
     const getList = useCallback(async () => {
         setIsLoading(true);
-        const res = await getRuleList();
+        try {
+            const res = await getRuleList();
+            setData(res);
+        } catch (error) {}
         setIsLoading(false);
-
-        setData(res);
     }, [hostMap]);
 
     const [currentRule, setCurrentRule] = useState<Rule>();
@@ -47,12 +51,16 @@ export default function () {
                 }
                 className="top-nav-bar"
             >
-                Rule List
+                <Space align="center">
+                    {isLoading && <SpinLoading color="default" style={{ '--size': '18px' }} />}
+                    <span>Rule List</span>
+                </Space>
             </NavBar>
+
             <div className="body">
                 <PullToRefresh onRefresh={getList}>
                     <div className="rule-list-wrap">
-                        {data?.length > 0 && !isLoading && (
+                        {data?.length > 0 && (
                             <List>
                                 {data?.map((rule) => (
                                     <List.Item
@@ -73,18 +81,9 @@ export default function () {
                             <ErrorBlock
                                 status="empty"
                                 title="Hmm, couldn't find data..."
-                                description={
-                                    <Button color="primary" size="mini" onClick={getList}>
-                                        Add Rule
-                                    </Button>
-                                }
+                                description={null}
                                 fullPage
                             />
-                        )}
-                        {isLoading && (
-                            <div className="loading-box">
-                                <SpinLoading color="primary" />
-                            </div>
                         )}
                     </div>
                 </PullToRefresh>

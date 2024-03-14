@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect } from 'react';
 import { Input, Form, Button, Toast, NavBar } from 'antd-mobile';
 import { getConfig, setConfig } from '@/utils/store';
-import './style.less';
 import { useNavigate } from 'react-router-dom';
+import { updateConfig } from '@/utils/api';
+import './style.less';
 
 const Config: React.FC = () => {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Config: React.FC = () => {
     const handleSave = useCallback(async () => {
         const res = await form.validateFields();
         setConfig(res);
+        updateConfig();
         Toast.show('Save success');
         navigate('/hosts', { replace: true });
     }, [form]);
