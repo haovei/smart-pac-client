@@ -7,13 +7,15 @@ import HostInfo from '../HostInfo';
 import './style.less';
 
 export default function () {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const [data, setData] = useState<Host[]>([]);
     const getList = useCallback(async () => {
         setIsLoading(true);
-        const res = await getHostList();
-        setData(res);
+        try {
+            const res = await getHostList();
+            setData(res);
+        } catch (error) {}
         setIsLoading(false);
     }, []);
 
@@ -60,7 +62,7 @@ export default function () {
                                 ))}
                             </List>
                         )}
-                        {data?.length === 0 && (
+                        {data?.length === 0 && !isLoading && (
                             <ErrorBlock
                                 status="empty"
                                 title="Hmm, couldn't find data..."

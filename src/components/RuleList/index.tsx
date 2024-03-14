@@ -7,28 +7,32 @@ import RuleInfo from '../RuleInfo';
 import './style.less';
 
 export default function () {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const [hostMap, setHostMap] = useState<any>();
     useEffect(() => {
         (async () => {
-            const hostList = await getHostList();
-            const map: any = {};
-            hostList.forEach((host) => {
-                map[host.id] = host;
-            });
-            setHostMap(map);
-            getList();
+            try {
+                const hostList = await getHostList();
+                const map: any = {};
+                hostList.forEach((host) => {
+                    map[host.id] = host;
+                });
+                setHostMap(map);
+                await getList();
+            } catch (error) {}
+            setIsLoading(false);
         })();
     }, []);
 
     const [data, setData] = useState<any[]>([]);
     const getList = useCallback(async () => {
         setIsLoading(true);
-        const res = await getRuleList();
+        try {
+            const res = await getRuleList();
+            setData(res);
+        } catch (error) {}
         setIsLoading(false);
-
-        setData(res);
     }, [hostMap]);
 
     const [currentRule, setCurrentRule] = useState<Rule>();
@@ -73,7 +77,7 @@ export default function () {
                                 ))}
                             </List>
                         )}
-                        {data?.length === 0 && (
+                        {data?.length === 0 && !isLoading && (
                             <ErrorBlock
                                 status="empty"
                                 title="Hmm, couldn't find data..."
