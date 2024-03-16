@@ -31,13 +31,13 @@ body {
         flex: 1;
         display: flex;
         justify-content: center;
-        /* align-items: center; */
         overflow: auto;
     }
 
     .bottom {
         flex: 0;
         border-top: solid 1px var(--adm-color-border);
+        padding-bottom: env(safe-area-inset-bottom);
     }
 }
 
