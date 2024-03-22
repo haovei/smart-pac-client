@@ -9,6 +9,7 @@
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
         "build:android": "tauri android build -t aarch64",
+        "build:mac": "tauri build",
         "tauri": "tauri"
     },
     "dependencies": {

@@ -8,6 +8,8 @@ This is the client, built with Tauri , the server is in another repository: [Sma
 
 ## Example
 
-[Smart PAC Client](https://w.quteam.com/smart-pac)
-
-[Android APP](https://play.google.com/store/apps/details?id=com.quteam.smartpac.app)
+-   [Web Client](https://w.quteam.com/smart-pac)
+-   Android
+    -   [Google Play](https://play.google.com/store/apps/details?id=com.quteam.smartpac.app)
+    -   [Apk Download](https://github.com/haovei/smart-pac-client/releases/download/v1.1.1/smart-pac_1.1.1.apk)
+-   [MacOS](https://github.com/haovei/smart-pac-client/releases/download/v1.1.1/smart-pac_1.1.1_aarch64.dmg)
