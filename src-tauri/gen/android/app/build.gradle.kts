@@ -12,7 +12,7 @@ android {
         applicationId = "com.quteam.smartpac.app"
         minSdk = 26
         targetSdk = 34
-        versionCode = 2
+        versionCode = 3
         versionName = "1.1.1"
     }
     buildTypes {
