@@ -1,6 +1,6 @@
-/src/main/java/com/quteam/smartpac/app/generated
+/src/main/java/com/quteam/smartpac/dev/generated
 /src/main/jniLibs/**/*.so
 /src/main/assets/tauri.conf.json
 /tauri.build.gradle.kts
 /proguard-tauri.pro
-/arm64
+/tauri.properties

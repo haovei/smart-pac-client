@@ -1,40 +1,35 @@
 {
-    "productName": "Smart PAC",
-    "version": "1.1.1",
-    "identifier": "com.quteam.smartpac.dev",
-    "build": {
-        "frontendDist": "../dist",
-        "devUrl": "http://localhost:5173",
-        "beforeDevCommand": "pnpm dev",
-        "beforeBuildCommand": "pnpm build"
-    },
-    "app": {
-        "windows": [
-            {
-                "title": "Smart PAC",
-                "width": 400,
-                "height": 800,
-                "resizable": true,
-                "fullscreen": false
-            }
-        ],
-        "security": {
-            "csp": null
-        }
-    },
-    "bundle": {
-        "active": true,
-        "targets": "all",
-        "icon": [
-            "icons/32x32.png",
-            "icons/128x128.png",
-            "icons/128x128@2x.png",
-            "icons/icon.icns",
-            "icons/icon.ico"
-        ],
-        "android": {
-            "minSdkVersion": 26
-        }
-    },
-    "$schema": "../node_modules/@tauri-apps/cli/schema.json"
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Smart PAC",
+  "version": "1.2.0",
+  "identifier": "com.quteam.smartpac.dev",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:5173",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Smart PAC",
+        "width": 800,
+        "height": 600
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
 }
