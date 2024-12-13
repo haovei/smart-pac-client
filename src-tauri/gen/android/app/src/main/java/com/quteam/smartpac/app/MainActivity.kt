@@ -1,3 +1,3 @@
-package com.quteam.smartpac.dev
+package com.quteam.smartpac.app
 
 class MainActivity : TauriActivity()
